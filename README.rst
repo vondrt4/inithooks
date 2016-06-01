@@ -274,14 +274,17 @@ configuration settings.
 It is possible to bypass this interactive configuration process by
 creating /etc/inithooks.conf in the appliance filesystem and
 writing inithooks configuration variables into it before the
-first system boot. For example:
+first system boot. For example by passing a User Data snippet in
+Amazon EC2 or OpenStack:
 ::
 
+    #!/bin/bash
     cat>/etc/inithooks.conf<<EOF
     export ROOT_PASS=supersecretrootpass
     export DB_PASS=supersecretmysqlpass
     export APP_EMAIL=admin@example.com
     export APP_PASS=webappadminpassword
+    export APP_DOMAIN=localhost
     export SEC_ALERTS=admin@example.com
     export SEC_UPDATES=FORCE
     export HUB_APIKEY=SKIP
@@ -349,11 +352,12 @@ Appliance specific:
     40phpbb                 APP_PASS, APP_EMAIL
     40twiki                 APP_PASS, APP_EMAIL
     40vtiger                APP_PASS, APP_EMAIL
-    40prestashop            APP_PASS, APP_EMAIL
+    40prestashop            APP_PASS, APP_EMAIL, APP_DOMAIN
     40magento               APP_PASS, APP_EMAIL, APP_DOMAIN
     40statusnet             APP_PASS, APP_EMAIL, APP_DOMAIN
     40ejabberd              APP_PASS, APP_DOMAIN
     40domain-controller     APP_PASS, APP_DOMAIN
+    40openvpn               APP_EMAIL, APP_DOMAIN, APP_PROFILE, APP_VIRTUAL_SUBNET, APP_PRIVATE_SUBNET
 
  
 If not preseeded, the user will be asked interactively. The SKIP
